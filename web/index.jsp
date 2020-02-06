@@ -6,6 +6,7 @@
             <pre>
             Email       <input type="text" name="email"/>
             Password    <input type="password" name="passsword"/>
+            Usertype    <select name="utype"><option>buyer</option><option>admin</option></select>
                         <input type="submit" value="Login"/>
             </pre>
         </form>
