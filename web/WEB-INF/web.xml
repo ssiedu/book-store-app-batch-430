@@ -8,6 +8,14 @@
         <servlet-name>RegistrationServlet</servlet-name>
         <servlet-class>RegistrationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaveBook</servlet-name>
+        <servlet-class>SaveBook</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookListServlet</servlet-name>
+        <servlet-class>BookListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticationServlet</servlet-name>
         <url-pattern>/AuthenticationServlet</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/RegistrationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveBook</servlet-name>
+        <url-pattern>/SaveBook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookListServlet</servlet-name>
+        <url-pattern>/BookListServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

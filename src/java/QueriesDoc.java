@@ -17,4 +17,6 @@ CREATE TABLE BOOKS
 	price integer
 )
 -----------------------------------------------------------
+alter table books modify bcode integer auto_increment;
+-----------------------------------------------------------
 */
