@@ -16,6 +16,14 @@
         <servlet-name>BookListServlet</servlet-name>
         <servlet-class>BookListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveBook</servlet-name>
+        <servlet-class>RemoveBook</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateForm</servlet-name>
+        <servlet-class>UpdateForm</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticationServlet</servlet-name>
         <url-pattern>/AuthenticationServlet</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>BookListServlet</servlet-name>
         <url-pattern>/BookListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveBook</servlet-name>
+        <url-pattern>/RemoveBook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateForm</servlet-name>
+        <url-pattern>/UpdateForm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
