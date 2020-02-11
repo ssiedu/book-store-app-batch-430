@@ -4,56 +4,64 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateForm extends HttpServlet {
+public class BookListSubjectWise extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //fetch the details of a books from db
+        
+        String sub=request.getParameter("subject");
+        
         PrintWriter out=response.getWriter();
-        String code=request.getParameter("code");
+        String sql="SELECT * FROM books WHERE subject=?";
         try{
-            String sql="SELECT * FROM books WHERE bcode=?";
             Class.forName("com.mysql.jdbc.Driver");
-            String url="jdbc:mysql://localhost:3306/booksdata";
-            Connection con=DriverManager.getConnection(url, "root", "root");
-            PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(code));
+            String url = "jdbc:mysql://localhost:3306/booksdata";
+            Connection con = DriverManager.getConnection(url, "root", "root");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, sub);
             ResultSet rs=ps.executeQuery();
-            rs.next();
-            String bcode=rs.getString(1);
-            String title=rs.getString(2);
-            String subject=rs.getString(3);
-            String author=rs.getString(4);
-            String price=rs.getString(5);
-            con.close();
-            
+            ResultSetMetaData rsmd=rs.getMetaData();
+            int n=rsmd.getColumnCount();
             out.println("<html>");
             out.println("<body>");
-            out.println("<h3>Updation-Form</h3>");
-            out.println("<pre>");
-            out.println("<form action=SaveChanges>");
-            out.println("<input type=hidden name=code value="+code+">");
-            //out.println("Code     : <input type=text name=code value="+code+" disabled=\"disabled\">");
-            out.println("Title    : <input type=text name=title value="+title+">");
-            out.println("Subject  : <input type=text name=subject value="+subject+">");
-            out.println("Author   : <input type=text name=author value="+author+">");
-            out.println("Price    : <input type=text name=price value="+price+">");
-            out.println("<input type=submit value=Save>");
-            out.println("</pre>");
-            out.println("</form>");
+            out.println("<h3>Book-List</h3>");
+            out.println("<hr>");
+            out.println("<table border=2>");
+            out.println("<tr>");
+            for(int i=1;i<=n;i++){
+                out.println("<th>");
+                out.println(rsmd.getColumnName(i).toUpperCase());
+                out.println("</th>");
+            }
+            out.println("</tr>");
+            while(rs.next()){
+                out.println("<tr>");
+                for(int i=1; i<=n; i++){
+                    out.println("<td>");
+                    out.println(rs.getString(i));
+                    out.println("</td>");
+                }
+                String id=rs.getString(1);
+                out.println("<td><a href=CartManager?code="+id+">Buy</a></td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+            out.println("<hr>");
+            out.println("<a href=SubjectPageServlet>SubjectPage</a><br>");
+            out.println("<a href=buyerpage.jsp>BuyerPage</a><br>");
             out.println("</body>");
             out.println("</html>");
             
-            
+            con.close();
         }catch(Exception e){
-            
+            out.println(e);
         }
-        //generate the html form with pre-populated values
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

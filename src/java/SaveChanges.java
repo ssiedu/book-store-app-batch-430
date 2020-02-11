@@ -1,59 +1,43 @@
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateForm extends HttpServlet {
+public class SaveChanges extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //fetch the details of a books from db
-        PrintWriter out=response.getWriter();
+        //?code=1&title=Statistics&subject=Maths&author=Sanjeev&price=650
         String code=request.getParameter("code");
+        String title=request.getParameter("title");
+        String subject=request.getParameter("subject");
+        String author=request.getParameter("author");
+        String price=request.getParameter("price");
+        
+        String sql="UPDATE books SET title=?, subject=?, author=?, price=? where bcode=?";
+
         try{
-            String sql="SELECT * FROM books WHERE bcode=?";
             Class.forName("com.mysql.jdbc.Driver");
             String url="jdbc:mysql://localhost:3306/booksdata";
             Connection con=DriverManager.getConnection(url, "root", "root");
             PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(code));
-            ResultSet rs=ps.executeQuery();
-            rs.next();
-            String bcode=rs.getString(1);
-            String title=rs.getString(2);
-            String subject=rs.getString(3);
-            String author=rs.getString(4);
-            String price=rs.getString(5);
+            ps.setString(1, title);
+            ps.setString(2, subject);
+            ps.setString(3, author);
+            ps.setInt(4, Integer.parseInt(price));
+            ps.setInt(5, Integer.parseInt(code));
+            ps.executeUpdate();
             con.close();
-            
-            out.println("<html>");
-            out.println("<body>");
-            out.println("<h3>Updation-Form</h3>");
-            out.println("<pre>");
-            out.println("<form action=SaveChanges>");
-            out.println("<input type=hidden name=code value="+code+">");
-            //out.println("Code     : <input type=text name=code value="+code+" disabled=\"disabled\">");
-            out.println("Title    : <input type=text name=title value="+title+">");
-            out.println("Subject  : <input type=text name=subject value="+subject+">");
-            out.println("Author   : <input type=text name=author value="+author+">");
-            out.println("Price    : <input type=text name=price value="+price+">");
-            out.println("<input type=submit value=Save>");
-            out.println("</pre>");
-            out.println("</form>");
-            out.println("</body>");
-            out.println("</html>");
-            
-            
+            response.sendRedirect("BookListServlet");
         }catch(Exception e){
-            
+            e.printStackTrace();
         }
-        //generate the html form with pre-populated values
+
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

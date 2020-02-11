@@ -4,10 +4,10 @@
         <hr>
         <pre>
         <a href="bookentry.jsp">Add-New-Book</a>
-        <a href="">Update-Book</a>
+        <a href="BookListServlet">Update-Book</a>
         <a href="BookListServlet">View-All-Books</a>
         <a href="">View-Orders</a>
-        <a href="">Logout</a>
+        <a href="index.jsp">Logout</a>
         </pre>
         <hr>
     </body>

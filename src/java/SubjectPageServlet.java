@@ -9,51 +9,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateForm extends HttpServlet {
+public class SubjectPageServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //fetch the details of a books from db
+        //will fetch all subjects from databse show as hlink
         PrintWriter out=response.getWriter();
-        String code=request.getParameter("code");
         try{
-            String sql="SELECT * FROM books WHERE bcode=?";
+            String sql="SELECT DISTINCT subject FROM books ORDER BY subject";
             Class.forName("com.mysql.jdbc.Driver");
-            String url="jdbc:mysql://localhost:3306/booksdata";
-            Connection con=DriverManager.getConnection(url, "root", "root");
-            PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(code));
+            String url = "jdbc:mysql://localhost:3306/booksdata";
+            Connection con = DriverManager.getConnection(url, "root", "root");
+            PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
-            rs.next();
-            String bcode=rs.getString(1);
-            String title=rs.getString(2);
-            String subject=rs.getString(3);
-            String author=rs.getString(4);
-            String price=rs.getString(5);
-            con.close();
-            
             out.println("<html>");
             out.println("<body>");
-            out.println("<h3>Updation-Form</h3>");
-            out.println("<pre>");
-            out.println("<form action=SaveChanges>");
-            out.println("<input type=hidden name=code value="+code+">");
-            //out.println("Code     : <input type=text name=code value="+code+" disabled=\"disabled\">");
-            out.println("Title    : <input type=text name=title value="+title+">");
-            out.println("Subject  : <input type=text name=subject value="+subject+">");
-            out.println("Author   : <input type=text name=author value="+author+">");
-            out.println("Price    : <input type=text name=price value="+price+">");
-            out.println("<input type=submit value=Save>");
-            out.println("</pre>");
-            out.println("</form>");
+            out.println("<h3>Subject-List</h3>");
+            out.println("<hr>");
+            while(rs.next()){
+                String sub=rs.getString(1);
+                out.println("<a href=BookListSubjectWise?subject="+sub+">");
+                out.println(sub);
+                out.println("</a>");
+                out.println("<br>");
+            }
+            out.println("<hr>");
+            out.println("<a href=buyerpage.jsp>BuyerPage</a><br>");
             out.println("</body>");
             out.println("</html>");
-            
-            
+            con.close();
         }catch(Exception e){
-            
+            out.println(e);
         }
-        //generate the html form with pre-populated values
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

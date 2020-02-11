@@ -24,6 +24,18 @@
         <servlet-name>UpdateForm</servlet-name>
         <servlet-class>UpdateForm</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaveChanges</servlet-name>
+        <servlet-class>SaveChanges</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubjectPageServlet</servlet-name>
+        <servlet-class>SubjectPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookListSubjectWise</servlet-name>
+        <servlet-class>BookListSubjectWise</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticationServlet</servlet-name>
         <url-pattern>/AuthenticationServlet</url-pattern>
@@ -47,6 +59,18 @@
     <servlet-mapping>
         <servlet-name>UpdateForm</servlet-name>
         <url-pattern>/UpdateForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveChanges</servlet-name>
+        <url-pattern>/SaveChanges</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectPageServlet</servlet-name>
+        <url-pattern>/SubjectPageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookListSubjectWise</servlet-name>
+        <url-pattern>/BookListSubjectWise</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
