@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +42,27 @@ public class AuthenticationServlet extends HttpServlet {
                 ResultSet rs = ps.executeQuery();
                 boolean found = rs.next();
                 if (found) {
+                    
+                    Cookie ckId=new Cookie("email",email);
+                    Cookie ckPw=new Cookie("password",password);
+                    ckId.setMaxAge(60*60*24*7);
+                    ckPw.setMaxAge(60*60*24*7);
+                    response.addCookie(ckId);
+                    response.addCookie(ckPw);
+                    //user-is-valid
+                    String name=rs.getString(1);
+                    //we wish to write this username to
+                    //client's disk using cookies.
+                    //so that user name will be available
+                    //in all upcoming request to any page.
+                    //step-1 (creating cookie object)
+                    Cookie ck=new Cookie("username",name);
+                    //step-2 (set the maximum age)
+                    ck.setMaxAge(60*60*24*7);
+                    //step-2 (add the cookie to response)
+                    response.addCookie(ck);
+                    
+                    
                     //redirect the user to buyer page
                     response.sendRedirect("buyerpage.jsp");
                 } else {

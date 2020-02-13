@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +14,21 @@ public class SubjectPageServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //will fetch all subjects from databse show as hlink
         PrintWriter out=response.getWriter();
+        //Here we are reading a cookie name "username"
+        //step-1 (fetch all the cookies)
+        Cookie cookies[]=request.getCookies();
+        //step-2 (search for cookie named "username"
+        String namevalue="";
+        for(Cookie cookie:cookies){
+            String name=cookie.getName();
+            if(name.equals("username")){
+                namevalue=cookie.getValue();
+                break;
+            }
+        }
+        //will fetch all subjects from databse show as hlink
+        
         try{
             String sql="SELECT DISTINCT subject FROM books ORDER BY subject";
             Class.forName("com.mysql.jdbc.Driver");
@@ -24,6 +38,7 @@ public class SubjectPageServlet extends HttpServlet {
             ResultSet rs=ps.executeQuery();
             out.println("<html>");
             out.println("<body>");
+            out.println("<h3>Welcome "+namevalue+"</h3>");
             out.println("<h3>Subject-List</h3>");
             out.println("<hr>");
             while(rs.next()){
