@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class AuthenticationServlet extends HttpServlet {
 
@@ -42,7 +43,11 @@ public class AuthenticationServlet extends HttpServlet {
                 ResultSet rs = ps.executeQuery();
                 boolean found = rs.next();
                 if (found) {
+                    //email we are storing to session
+                    HttpSession session=request.getSession();
+                    session.setAttribute("user", email);
                     
+                    //id/pwd are stored to cookies
                     Cookie ckId=new Cookie("email",email);
                     Cookie ckPw=new Cookie("password",password);
                     ckId.setMaxAge(60*60*24*7);

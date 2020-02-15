@@ -9,12 +9,19 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class SubjectPageServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out=response.getWriter();
+        //Here we are reading the email from session
+        HttpSession session=request.getSession();
+        String id=(String)session.getAttribute("user");
+        if(id==null){
+            response.sendRedirect("index.jsp");
+        }
         //Here we are reading a cookie name "username"
         //step-1 (fetch all the cookies)
         Cookie cookies[]=request.getCookies();
@@ -38,7 +45,7 @@ public class SubjectPageServlet extends HttpServlet {
             ResultSet rs=ps.executeQuery();
             out.println("<html>");
             out.println("<body>");
-            out.println("<h3>Welcome "+namevalue+"</h3>");
+            out.println("<h3>Welcome "+id+"</h3>");
             out.println("<h3>Subject-List</h3>");
             out.println("<hr>");
             while(rs.next()){
