@@ -1,8 +1,10 @@
 <%
+  String id=session.getId();
   //feching all cookies
   Cookie cookies[]=request.getCookies();
   //search for email, password
   String v1="",v2="";
+  if(cookies!=null)
   for(Cookie cookie:cookies){
       String name=cookie.getName();
       if(name.equals("email")){
@@ -15,6 +17,7 @@
 
 <html>
     <body>
+        <h5>Session-id <%=id%></h5>
         <h3>Xyz Book Stores</h3>
         <hr>
         <form action="AuthenticationServlet" method="get">

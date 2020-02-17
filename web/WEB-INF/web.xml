@@ -36,6 +36,10 @@
         <servlet-name>BookListSubjectWise</servlet-name>
         <servlet-class>BookListSubjectWise</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EndSession</servlet-name>
+        <servlet-class>EndSession</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticationServlet</servlet-name>
         <url-pattern>/AuthenticationServlet</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>BookListSubjectWise</servlet-name>
         <url-pattern>/BookListSubjectWise</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EndSession</servlet-name>
+        <url-pattern>/EndSession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

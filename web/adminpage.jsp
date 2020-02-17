@@ -1,5 +1,10 @@
+<%
+    session.setMaxInactiveInterval(1200);
+    int n=session.getMaxInactiveInterval();
+%>
 <html>
     <body>
+        <h5>Session Timeout Period : <%=n%> Seconds</h5>
         <h3>ADMIN-DASHBOARD</h3>
         <hr>
         <pre>
