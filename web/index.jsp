@@ -17,7 +17,7 @@
 
 <html>
     <body>
-        <h5>Session-id <%=id%></h5>
+<%--        <h5>Session-id <%=id%></h5>--%>
         <h3>Xyz Book Stores</h3>
         <hr>
         <form action="AuthenticationServlet" method="get">

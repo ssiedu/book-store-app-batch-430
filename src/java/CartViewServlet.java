@@ -2,75 +2,75 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashSet;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class SubjectPageServlet extends HttpServlet {
+public class CartViewServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out=response.getWriter();
-        //Here we are reading the email from session
         HttpSession session=request.getSession();
-        String id=(String)session.getAttribute("user");
-        if(id==null){
-            response.sendRedirect("index.jsp");
-        }
-        //finding the no of items in cart
         HashSet<String> set=(HashSet<String>) session.getAttribute("cart");
-        int items=0;
-        if(set!=null){
-            items=set.size();
-        }
-        //Here we are reading a cookie name "username"
-        //step-1 (fetch all the cookies)
-        Cookie cookies[]=request.getCookies();
-        //step-2 (search for cookie named "username"
-        String namevalue="";
-        for(Cookie cookie:cookies){
-            String name=cookie.getName();
-            if(name.equals("username")){
-                namevalue=cookie.getValue();
-                break;
-            }
-        }
-        //will fetch all subjects from databse show as hlink
-        
-        try{
-            String sql="SELECT DISTINCT subject FROM books ORDER BY subject";
+        out.println("<html>");
+        out.println("<body>");
+        if(set==null){
+            out.println("<h5>Your Cart Is Empty </h5>");
+            out.println("<h5><a href=SubjectPageServlet>Start-Buying</a></h5>");
+        }else{
+            String items=set.toString();
+            String sql="SELECT * FROM books WHERE BCODE IN "+items;
+            sql=sql.replace('[', '(');
+            sql=sql.replace(']', ')');
+            try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/booksdata";
-            Connection con = DriverManager.getConnection(url, "root", "root");
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery();
-            out.println("<html>");
-            out.println("<body>");
-            out.println("<h3>Welcome "+id+"</h3>");
-            out.println("<h3>Subject-List</h3>");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/booksdata","root","root");
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery(sql);
+            out.println("<h4>Your Cart</h4>");
             out.println("<hr>");
+            out.println("<table border=2>");
+            out.println("<tr>");
+            out.println("<th>Code</th><th>Title</th><th>Subject</th><th>Author</th><th>Price</th>");
+            out.println("</tr>");
+            int sum=0;
             while(rs.next()){
-                String sub=rs.getString(1);
-                out.println("<a href=BookListSubjectWise?subject="+sub+">");
-                out.println(sub);
-                out.println("</a>");
-                out.println("<br>");
+                String code=rs.getString(1);
+                String title=rs.getString(2);
+                String subject=rs.getString(3);
+                String author=rs.getString(4);
+                int price=rs.getInt(5);
+                sum=sum+price;
+                out.println("<tr>");
+                out.println("<td>"+code+"</td>");
+                out.println("<td>"+title+"</td>");
+                out.println("<td>"+subject+"</td>");
+                out.println("<td>"+author+"</td>");
+                out.println("<td>"+price+"</td>");
+                out.println("<td><a href=RemoveBookFromCart?code="+code+">X</a>");
+                out.println("</tr>");
             }
+            out.println("<tr>");
+            out.println("<td></td><td></td><td></td>");
+            out.println("<td>Total</td>");
+            out.println("<td>"+sum+"</td>");
+            out.println("</tr>");
+            out.println("</table>");
             out.println("<hr>");
-            out.println("<h5>Total Books In Cart : "+items+"</h5>");
+            out.println("<a href=SubjectPageServlet>Add-More-Books</a><br>");
             out.println("<a href=buyerpage.jsp>BuyerPage</a><br>");
-            out.println("</body>");
-            out.println("</html>");
-            con.close();
-        }catch(Exception e){
-            out.println(e);
+            }catch(Exception e){
+                out.println(e);
+            }
         }
+        out.println("</body>");
+        out.println("</html>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

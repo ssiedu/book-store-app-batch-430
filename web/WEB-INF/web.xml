@@ -40,6 +40,18 @@
         <servlet-name>EndSession</servlet-name>
         <servlet-class>EndSession</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartManager</servlet-name>
+        <servlet-class>CartManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartViewServlet</servlet-name>
+        <servlet-class>CartViewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveBookFromCart</servlet-name>
+        <servlet-class>RemoveBookFromCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticationServlet</servlet-name>
         <url-pattern>/AuthenticationServlet</url-pattern>
@@ -79,6 +91,18 @@
     <servlet-mapping>
         <servlet-name>EndSession</servlet-name>
         <url-pattern>/EndSession</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartManager</servlet-name>
+        <url-pattern>/CartManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartViewServlet</servlet-name>
+        <url-pattern>/CartViewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveBookFromCart</servlet-name>
+        <url-pattern>/RemoveBookFromCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
