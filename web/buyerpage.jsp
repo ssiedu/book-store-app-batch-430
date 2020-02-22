@@ -18,7 +18,7 @@
         <hr>
         <pre>
         <a href="SubjectPageServlet">View-Books-Subject-Wise</a>
-        <a href="">View-Books-Author-Wise</a>
+        <a href="searchpage.jsp">View-Books-Author-Wise</a>
         <a href="CartViewServlet">View-Cart</a>
         <a href="EndSession">Logout</a>
         </pre>
