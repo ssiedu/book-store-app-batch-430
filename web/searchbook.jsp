@@ -1,5 +1,22 @@
-<%
+<%@include file="info.jsp" %>
+
+
+<%!
+    public int highRate=20;
+    public int lowRate=10;
     
+    int getDiscount(int p){
+        int d=0;
+        if(p>=1000){
+            d=p*highRate/100;
+        }else{
+            d=p*lowRate/100;
+        }
+        return d;
+    }   
+%>
+
+<%
     String aname=request.getParameter("author");
     //jdbc code to fetch the data
     String sql="SELECT * FROM books WHERE author=?";
@@ -20,6 +37,7 @@
                 <th>Subject</th>
                 <th>Author</th>
                 <th>Price</th>
+                <th>Dis</th>
             </tr>
 <%
     while(rs.next()){
@@ -27,14 +45,16 @@
         String title=rs.getString(2);
         String subject=rs.getString(3);
         String author=rs.getString(4);
-        String price=rs.getString(5);
+        int price=rs.getInt(5);
+        //int discount=getDiscount(price);
 %>
 <tr>
-    <td><% out.println(code); %></td>
-    <td><% out.println(title); %></td>
-    <td><% out.println(subject); %></td>
-    <td><% out.println(author); %></td>
-    <td><% out.println(price); %></td>
+    <td><%=code%></td>
+    <td><%=title%></td>
+    <td><%=subject%></td>
+    <td><%=author%></td>
+    <td><%=price%></td>
+    <td><%=getDiscount(price)%></td>
 </tr>
 <%
     }

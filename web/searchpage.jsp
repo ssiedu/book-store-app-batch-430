@@ -1,9 +1,15 @@
+<%@page  import="java.sql.Connection, java.util.Stack" %>
+<%@page  import="java.sql.PreparedStatement" %>
+<%@include file="info.jsp" %>
+
+
 <%
+    Stack stk;
     String stname=application.getInitParameter("store");
     String sql="SELECT DISTINCT author FROM books ORDER BY author";
     Class.forName("com.mysql.jdbc.Driver");
-    java.sql.Connection con=java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/booksdata","root","root");
-    java.sql.PreparedStatement ps=con.prepareStatement(sql);
+    Connection con=java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/booksdata","root","root");
+    PreparedStatement ps=con.prepareStatement(sql);
     java.sql.ResultSet rs=ps.executeQuery();
 %>
 <html>
@@ -17,7 +23,7 @@
     while(rs.next()){
         String aname=rs.getString(1);
 %>
-<option><% out.println(aname); %></option>
+<option><%=aname%></option>
 <%
     }
 %>

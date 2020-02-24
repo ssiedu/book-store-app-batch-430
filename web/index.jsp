@@ -1,3 +1,5 @@
+<%@include file="info.jsp" %>
+
 <%
   String id=session.getId();
   //feching all cookies
@@ -18,8 +20,7 @@
 <html>
     <body>
 <%--        <h5>Session-id <%=id%></h5>--%>
-        <h3>Xyz Book Stores</h3>
-        <hr>
+        
         <form action="AuthenticationServlet" method="get">
             <pre>
             Email       <input type="text" name="email" value="<%=v1%>"/>
