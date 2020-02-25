@@ -1,3 +1,4 @@
+<%@taglib uri="/WEB-INF/tlds/mylib.tld" prefix="data" %>
 <%@include file="info.jsp" %>
 
 <%
@@ -32,5 +33,8 @@
         </form>
         <hr>
         <a href="registration.jsp">New-User</a>
+        <hr>
+        <data:address/>
+        
     </body>
 </html>
