@@ -18,6 +18,7 @@
         <h3>BUYER-DASHBOARD</h3>
         <hr>
         <pre>
+        <a href="search.jsp">Book-Search</a>
         <a href="SubjectPageServlet">View-Books-Subject-Wise</a>
         <a href="searchpage.jsp">View-Books-Author-Wise</a>
         <a href="CartViewServlet">View-Cart</a>

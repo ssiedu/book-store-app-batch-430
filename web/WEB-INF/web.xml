@@ -56,6 +56,10 @@
         <servlet-name>RemoveBookFromCart</servlet-name>
         <servlet-class>RemoveBookFromCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchController</servlet-name>
+        <servlet-class>SearchController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthenticationServlet</servlet-name>
         <url-pattern>/AuthenticationServlet</url-pattern>
@@ -107,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>RemoveBookFromCart</servlet-name>
         <url-pattern>/RemoveBookFromCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchController</servlet-name>
+        <url-pattern>/SearchController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
